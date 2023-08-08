@@ -2,7 +2,7 @@
 
 这要从计算机领域存在一条著名的定律——摩尔定律说起，摩尔定律由lntel的创始人之一戈登• 摩尔提出。其内容为：集成电路上可容纳的晶体管数目，约每隔两年便会增加一倍。这句话可以简单地理解为，计算机芯片的运算能力，约每隔两年就能提升一倍。
 
-<img src="images/image-20230724171147374.png" alt="image-20230724171147374" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724171147374.png" alt="image-20230724171147374" style="zoom:50%;" />
 
 在二十世纪后半叶，计算机芯片的发展速度印证着这条规律。但是随着晶体管的尺寸越来越接近物理极限，所以自从2013年以来，芯片上集成的晶体管数目的增长速度开始放缓，各大厂商也被开始吐槽“挤牙膏”。
 
@@ -10,7 +10,7 @@
 
 但是，并非所有需要被处理任务都是完全独立的，当多个任务在执行期间想要进行读写同一块内存值时，问题出现了：我们应该如何管理共享内存？如何对多个任务进行同步管理，以至于程序不会出错？同时，我们依然需要秉持高效性能的目标，找到最优的解決方法。
 
-<img src="images/image-20230724171422150.png" alt="image-20230724171422150" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724171422150.png" alt="image-20230724171422150" style="zoom:50%;" />
 
 这便是并发编程的意义，并发编程已经成为了一种主流的开发模式，这是一名工程师难以回避的进阶内容，也成为了各个公司面试考察的重点环节。
 
@@ -32,7 +32,7 @@
 
 - JVM线程对不同操作系统上的原生线程进行了高级抽象，使开发者大多数情况下可以不用关注下层细节，而只要专注上层开发。不过在学习过程中，我们秉持知其然并知其所以然的态度，就需要去理解这种抽象方式，这也有助于将来我们自己进行一些设计的时候，能够复用前人的思想。
 
-<img src="images/image-20230724172021995.png" alt="image-20230724172021995" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724172021995.png" alt="image-20230724172021995" style="zoom:50%;" />
 
 理解了什么是线程模型，为什么要有线程模型。接下来介绍一下JVM线程模型的三种类型：一对一，多对一，多对多。
 
@@ -44,7 +44,7 @@
 
 有一道面试题非常普遍：“说说线程和进程的区别”。网上流传的答案之一是 “线程属于进程”，这个说法是不准确的。Linux线程又被称为 “轻量级进程”，这就使很多同学摸不着头脑，那到底是线程还是进程？我们可以这么去理解，**“线程”是抽象概念（KLT，内核线程）**，因为Linux内部没有专门为线程定义的数据结构和调度算法，所以**Linux去实现 “线程”的方式是 “轻量级进程”（LWP，轻量级进程），本质还是进程**。只不过加了一个“轻量级”的修饰词。
 
-<img src="images/image-20230724172405763.png" alt="image-20230724172405763" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724172405763.png" alt="image-20230724172405763" style="zoom:50%;" />
 
 **“轻量级进程”与“进程”的区别在哪？**
 
@@ -60,7 +60,7 @@ JVM线程模型的三种类型：一对一，多对一，多对多。
 
 UT=用户线程；LWP=轻量级进程；KLT=内核线程
 
-<img src="images/image-20230724173150159.png" alt="image-20230724173150159" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724173150159.png" alt="image-20230724173150159" style="zoom:50%;" />
 
 **优点：**
 
@@ -80,7 +80,7 @@ UT=用户线程；LWP=轻量级进程；KLT=内核线程
 
 可以看下面这张图，**图上多个用户线程映射到一个内核线进程上，**用户线程的调度需要由用户空间来完成。
 
-<img src="images/image-20230724173926882.png" alt="image-20230724173926882" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724173926882.png" alt="image-20230724173926882" style="zoom:50%;" />
 
 优点：
 
@@ -98,7 +98,7 @@ UT=用户线程；LWP=轻量级进程；KLT=内核线程
 
 来看下面这张图。基本上能看得出来，这种方式的优点能够解决一对一和多对一模型的缺点，综合它们的优点。不过缺点就是，要实现这种线程模型难度比较高。
 
-<img src="images/image-20230724174113679.png" alt="image-20230724174113679" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724174113679.png" alt="image-20230724174113679" style="zoom:50%;" />
 
 Go语言采用的GMP线程模型就是基于多对多的方式来实现的，这也是为什么能够利用goroutine实现更高并发的原因。值得一提的是，Java的Loom项目也在进行这方面的探索。
 
@@ -118,13 +118,13 @@ Go语言采用的GMP线程模型就是基于多对多的方式来实现的，这
 
 > 在并发环境下，会出现多个线程对同一个资源进行争抢的情况，假设A线程对资源正在进行修改，此时B线程此时又对资源进行了修改，这就可能会导致数据不一致的问题。为了解決这个问题，很多编程语言引入了锁机制，通过一种抽象的“锁”来对资源进行锁定，当一个线程持有“锁”的时候，其他线程必须等待“锁”，**我认为这本质上就是在临界资源上对线程进行一种串行化。**
 >
-> <img src="images/image-20230728191016014.png" alt="image-20230728191016014" style="zoom:50%;" />
+> <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728191016014.png" alt="image-20230728191016014" style="zoom:50%;" />
 
 
 
 **那么 Java语言中的锁机制是怎么设计的？在谈锁之前，我们需要简单了解一些Java虛拟机的内存结构**。关于内存结构不是本文的重点，暂时不会影响到你的理解。我们可以来看这张图：
 
-<img src="images/image-20230724174528143.png" alt="image-20230724174528143" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724174528143.png" alt="image-20230724174528143" style="zoom:50%;" />
 
 JVM运行时内存结构主要包含了五个部分：程序计数器(PC寄存器）、JVM栈、Native方法栈、堆、方法区。
 
@@ -148,7 +148,7 @@ JVM运行时内存结构主要包含了五个部分：程序计数器(PC寄存�
 
 - 对象头；实例数据；对齐填充字节；
 
-<img src="images/image-20230728191453860.png" alt="image-20230728191453860" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728191453860.png" alt="image-20230728191453860" style="zoom: 33%;" />
 
 TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的倍数”这一条件而设计的，为对象对齐填充了一些无用字节，大可不必理会。实例数据就是你在初始化对象时设定的属性和状态等内容。
 
@@ -162,7 +162,7 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 **Mark Word存储了很多当前对象的运行时状态信息，比如Hashcode、锁状态标志、指向锁记录的指针、偏向线程ID、锁标志位等等**。
 
-![image-20230728192112420](images/image-20230728192112420.png)
+![image-20230728192112420](https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728192112420.png)
 
 >  上面也提到了，对象头被设计得很小，Mark Word则主要体现了这一点，通过这张表我们可以看到，Mark Word只有32bit（或64bit）并旦它是非结构化的。这样，在不同的锁标识位下，不同字段可以重用不同的比特位，节省了空间。
 
@@ -176,11 +176,11 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 我们都知道，Java里面Synchronized关键字可以用来同步线程，它的底层原理是synchronized被编译后会生成monitorenter和monitorexit两个字节码指令，依赖这两个字节码指令来进行线程同步。
 
-<img src="images/image-20230728192610365.png" alt="image-20230728192610365" style="zoom:33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728192610365.png" alt="image-20230728192610365" style="zoom:33%;" />
 
 这里要介绍一样新事物：Monitor常常被翻译成监视器或管程。关于Monitor，简单来说，你可以把它想像成一个只能容纳一名客人房间，而把想要获取对象锁的线程想像成想要进入这个房间的客人。一个线程进入了Monitor，那么其他线程只能等待，只有当这个线程退出，其他线程才有机会进入。
 
-<img src="images/image-20230728192758728.png" alt="image-20230728192758728" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728192758728.png" alt="image-20230728192758728" style="zoom:50%;" />
 
 ==synchronized性能问题在于：==
 
@@ -188,7 +188,7 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 但是从Java6开始，synchronized进行了优化，引入了 “偏向锁”、“轻量级锁”的概念。因此对象锁总共有四种状态，从低到高分别是“无锁”、“偏向锁”、“轻量级锁”、“重量级锁”，这就分别对应了Mark Word中锁标记位的四种状态。
 
-<img src="images/image-20230728193040656.png" alt="image-20230728193040656" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728193040656.png" alt="image-20230728193040656" style="zoom:50%;" />
 
 ## 2.4 对象锁的四种状态
 
@@ -196,7 +196,7 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 接下来，你一定会对synchronized是如何优化的？这四种状态是如何变化的产生好奇，那么我们就来仔细看看“无锁”、“偏向锁”、“轻量级锁”、“重量级锁” 这四种状态各是什么。
 
-<img src="images/image-20230728193123461.png" alt="image-20230728193123461" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728193123461.png" alt="image-20230728193123461" style="zoom:50%;" />
 
 **1、无锁状态**
 
@@ -206,7 +206,7 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 - 另一种情況，资源会被竞争，但是不使用操作系统同步原语对共享资源进行锁定，而是通过一些其他机制来控制同步。比如CAS，通过诸如这种函数级别的锁，我们可以进行 “无锁”编程。
 
-<img src="images/image-20230728193327594.png" alt="image-20230728193327594" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728193327594.png" alt="image-20230728193327594" style="zoom: 33%;" />
 
 顺便一提的是，上面也分析了依赖操作系统Mutex Lock导致性能低下的原因，所以在大部分情况下，无锁的效率更高，但这并非意味着无锁能够全面代替有锁。
 
@@ -214,7 +214,7 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 现在我们开始给对象进行加锁了；
 
-<img src="images/image-20230728193609402.png" alt="image-20230728193609402" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728193609402.png" alt="image-20230728193609402" style="zoom: 33%;" />
 
 那么偏向锁是怎么实现的呢？其实很简单，在Mark Word中，当锁标志位是01，那么判断倒数第三个bit是否为1，如果是1，代表当前对象的锁状态为偏向锁，于是再去读Mark Word的前23个bit， 这23个bit就是线程ID，通过线程1D来确认想要获得对象锁的线程是不是“被偏爱的线程”。
 
@@ -226,13 +226,13 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 当一个线程想要获得某个对象的锁时，假如看到锁标志位为00，那么就知道它是轻量级锁，这时，线程会在自己的虚拟机栈中开辟一块被称为“Lock Record” 的空间，头于虛拟机栈，上面简单讲过，是线程私有的。
 
-<img src="images/image-20230728194227471.png" alt="image-20230728194227471" style="zoom:33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728194227471.png" alt="image-20230728194227471" style="zoom:33%;" />
 
 > Lock Record中存放什么呢？存放的是对象头的Mark Word的副本以及Owner指针。线程通过CAS去尝试获取锁，一旦获得，那么将会复制该对象的Mark Word到虚拟机栈的Lock Record中，并且将Lock Record中的Owner指针指向该对象锁。另一方面，对象的Mark Word中的前30bit将生成一个指针，指向持有该对象锁的线程虛拟机栈中的Lock Record。 这样一来就实现了线程和对象锁的绑定，它们因此互相知道对方的存在。
 
 此时对象已经被锁定了，那么其他线程要获取锁的会怎么办呢？此时其他线程会自旋等待。
 
-<img src="images/image-20230728194736228.png" alt="image-20230728194736228" style="zoom:33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728194736228.png" alt="image-20230728194736228" style="zoom:33%;" />
 
 
 
@@ -254,13 +254,13 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 前面我们说到了锁的四种状态里面的——“无锁”，他可以很大程度提高程序的并发性能，但其编程难度会很高。
 
-<img src="images/image-20230728195202259.png" alt="image-20230728195202259" style="zoom:33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728195202259.png" alt="image-20230728195202259" style="zoom:33%;" />
 
 一般我们针对共享资源，就是直接加锁，但加锁属于是悲观锁，悲观锁一方面在只有读的情况下，是不需要加锁的，其次主要的是会引发用户态和内核态的频繁切换，有一些情况下，可能代码块的执行耗时甚至低于线程切换的耗时，这就很影响节奏。
 
 **那么有没有办法在不锁定资源的情况进行，也可以对线程的调用进行协调呢？这就是大名鼎鼎的CAS。**
 
-<img src="images/image-20230728195857441.png" alt="image-20230728195857441" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728195857441.png" alt="image-20230728195857441" style="zoom:50%;" />
 
 
 
@@ -277,7 +277,7 @@ CAS：全称compare and swap，即比较并交换，它是一条==CPU同步原�
 
 **CAS有什么缺陷?**
 
-<img src="images/image-20230209160753171.png" alt="image-20230209160753171" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230209160753171.png" alt="image-20230209160753171" style="zoom:50%;" />
 
 > 万丈高楼平地起，在计算机世界中更是如此，底层开放一点新特性，上层就获得了施展手脚的舞台。有了CPU指令级对CAS的支持，以此为基础，就能促进上层产生多种多样无锁编程的思路，以及诞生各种各样好用的库和工具。
 
@@ -291,11 +291,11 @@ CAS：全称compare and swap，即比较并交换，它是一条==CPU同步原�
 
 > 假设有一个简单的需求，你需要使用3条线程，将一个值，从O累加到1000，你该怎么做？首先我写一种错误的写法，不使用任何同步操作，那么一定会出现线程安全问题。
 >
-> <img src="images/image-20230728201256696.png" alt="image-20230728201256696" style="zoom: 50%;" />
+> <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728201256696.png" alt="image-20230728201256696" style="zoom: 50%;" />
 >
 > 下面我们不使用Synchronized来同步线程，使用基于CAS的工具；如何使用乐观锁实现呢？非常简单。写过Java的同学应该都知道AtomicInteger这个类，它的底层通过CAS来实现了同步的计数器。我们可以将代码改成这样：
 >
-> <img src="images/image-20230728201417367.png" alt="image-20230728201417367" style="zoom:50%;" />
+> <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728201417367.png" alt="image-20230728201417367" style="zoom:50%;" />
 >
 > 当然，写这段代码，实现这个功能不是我们的目的。
 
@@ -307,25 +307,25 @@ CAS：全称compare and swap，即比较并交换，它是一条==CPU同步原�
 
 AtomicInteger这个类的内容不多，主要的成员变量就是一个Unsafe类型的实例和一个Long类型的offset，这边注释也开门见山，告诉我们使用Unsafe的CAS操作来对值进行更新。
 
-<img src="images/image-20230728201638323.png" alt="image-20230728201638323" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728201638323.png" alt="image-20230728201638323" style="zoom:50%;" />
 
 往下面我们可以看到**直接调用了Unsafe对象的getAndAddlnt方法**，进一步点进去，可以看到确实就是调用了Unsafe的compareAndSwaplnt方法 (CAS)。这里出现了一个循环，实际上这就是我之前提及的“自旋”。
 
-<img src="images/image-20230728201821189.png" alt="image-20230728201821189" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728201821189.png" alt="image-20230728201821189" style="zoom:50%;" />
 
 有的同学会问，假如这边CAS操作一直失败，那么会不会一直死循环下去？问得好，自旋的次数实际上可以通过启动参数来配置，如果你不配置的话，默认是10，所以不会出现死循环。
 
 ## 3.4 unsafe类
 
-<img src="images/image-20230728201926236.png" alt="image-20230728201926236" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728201926236.png" alt="image-20230728201926236" style="zoom:50%;" />
 
 点击进入unsafe类，我们可以看到很多方法都是native修饰符，说明这是一个本地方法，他和具体的平台实现相关；
 
-<img src="images/image-20230728202141501.png" alt="image-20230728202141501" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728202141501.png" alt="image-20230728202141501" style="zoom:50%;" />
 
 如果你的CPU是x86架构，那么事实上这个本地方法将会调用系统的cmpxchg指令。我们可以在openjdk源码中的hotspot/src/share/vm/prims/unsafe.cpp和hotspot/src/share/vm/runtime/ Atomic.cpp 路径下找到，这些本地方法是c++写的。
 
-<img src="images/image-20230728202302938.png" alt="image-20230728202302938" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728202302938.png" alt="image-20230728202302938" style="zoom:50%;" />
 
 ## 3.5 总结
 
@@ -351,7 +351,7 @@ AtomicInteger这个类的内容不多，主要的成员变量就是一个Unsafe�
 
 如果是我，我会从这几点这去思考：
 
-<img src="images/image-20230728203744285.png" alt="image-20230728203744285" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728203744285.png" alt="image-20230728203744285" style="zoom: 33%;" />
 
 - 第一点：既然我要做一个框架，首先它需要具有通用性，因为上层业务逻辑是千变万化的，所以这个框架在实现底层必要的同步机制的同时，要保证对外接口的简单性和纯粹性，开放一定的空间给上层业务编写。
 
@@ -370,13 +370,13 @@ AtomicInteger这个类的内容不多，主要的成员变量就是一个Unsafe�
 
 **AQS全称AbstractQueuedSynchronizer。顾名思义就是一个抽象的 (可被继承复用），内部存在排队（竞争资源的线程排队）的同步器（对共享资源和线程进行同步管理）**
 
-<img src="images/image-20230728204733494.png" alt="image-20230728204733494" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728204733494.png" alt="image-20230728204733494" style="zoom:50%;" />
 
 ## 4.2 深入AQS源码
 
 **1、我们先来看一下AQS的成员属性**
 
-<img src="images/image-20230728204835789.png" alt="image-20230728204835789" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728204835789.png" alt="image-20230728204835789" style="zoom:50%;" />
 
 很简单，一共就三个属性。state就是之前讲的用于判断共享资源是否被占用的标记位，volatile保证了线程之间的可见性。int类型的原因在于state需要表示线程占用数量，因此是int值。然后就是两个Node属性，这是双向链表的虚拟头节点和虚拟尾节点。
 
@@ -386,7 +386,7 @@ AtomicInteger这个类的内容不多，主要的成员变量就是一个Unsafe�
 
 我们看一下节点类的成员属性：也很简单
 
-<img src="images/image-20230728205727237.png" alt="image-20230728205727237" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728205727237.png" alt="image-20230728205727237" style="zoom:50%;" />
 
 其中，这个等待状态需要记一下：
 
@@ -408,9 +408,9 @@ AtomicInteger这个类的内容不多，主要的成员变量就是一个Unsafe�
 
 我们之前提到了两种场景，下面我们思考如何通过标志位和这个队列完成同步等待的过程。所以盲猜AQS里面就有这两个场景的实现方法，果然如下。
 
-<img src="images/image-20230728210609232.png" alt="image-20230728210609232" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728210609232.png" alt="image-20230728210609232" style="zoom: 33%;" />
 
-<img src="images/image-20230728210928409.png" alt="image-20230728210928409" style="zoom: 50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728210928409.png" alt="image-20230728210928409" style="zoom: 50%;" />
 
 ### 1. tryAcquire()
 
@@ -440,7 +440,7 @@ acquire被final修饰，表示不允许子类擅自override， 似乎是在宣�
 
 tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁成功，那么ltryAcquire为false，说明己经获取锁，根本不用参与排队，也就是不用再执行后续判断条件。假如tryAcquire返回false，说明需要排队，那么就进而执行`acquirequeued(addWaiter(Node.EXCLUSIVE)，arg）`，其中呢acquireQueued 方法其中嵌套了`addwaiter `方法。
 
-<img src="images/image-20230729173313389.png" alt="image-20230729173313389" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729173313389.png" alt="image-20230729173313389" style="zoom: 33%;" />
 
 #### 1. addWaiter()
 
@@ -448,7 +448,7 @@ tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁
 
 顾名思义，这个方法的作用就是**将当前线程封装成一个Node，然后加入等待队列，返回值即为该Node。**
 
-<img src="images/image-20230728213833455.png" alt="image-20230728213833455" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728213833455.png" alt="image-20230728213833455" style="zoom:50%;" />
 
 逻辑也非常简单，首先新建一个Node对象，之前也说过这个队列是先入先出的，接下来顺理成章地想到，我们需要将其插入队尾。但是下面我们需要考虑多线程场景，即假设存在多个线程正在同时调用addWaiter方法。
 
@@ -476,7 +476,7 @@ tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁
 
 - 快速插入失败，想要进行完整流程的插入，这里所说的快速插入，指的就是11-17行的逻辑，当并发线程较少的情况下，快速插入成功率很高，程序不用进入完整流程插入，效率会更高。既然程序来到了第18行，那么我们就来看看完整流程的插入是什么样子的。
 
-<img src="images/image-20230729175105973.png" alt="image-20230729175105973" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729175105973.png" alt="image-20230729175105973" style="zoom: 33%;" />
 
 这个方法里的逻辑，有一种似曾相识的感觉，其实就是在最外层加上了一层死循环，如果队列未初始化 (tail ==null)，那么就尝试初始化，如果尾插节点失败，那么就不断重试，直到插入成功为止。
 
@@ -492,17 +492,17 @@ tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁
 
 我最初的猜测是：既然存在一个FIFO队列，那么可能会使用了 “生产-消费”模式，有一个消费者不断从这个队列的头部获取节点，让他去不断拿锁。
 
-<img src="images/image-20230729180156739.png" alt="image-20230729180156739" style="zoom:33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729180156739.png" alt="image-20230729180156739" style="zoom:33%;" />
 
 但是实际上AQS并没有这么做，并我们想象的更加巧妙。
 
 **它在各个线程中维护了当前Node的waitstatus，根据根据不同的状态，来实现队列的先入先出。通过调用 acquireQueued 方法，开始对Node的waitStatus进行跟踪维护。**
 
-<img src="images/image-20230729180331970.png" alt="image-20230729180331970" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729180331970.png" alt="image-20230729180331970" style="zoom: 33%;" />
 
 下面，我们看一下这个acquireQueued的方法源码部分，一点点进行解析，实现了双向链表的先入先出；
 
-<img src="images/image-20230729182516074.png" alt="image-20230729182516074" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729182516074.png" alt="image-20230729182516074" style="zoom:50%;" />
 
 其中这个`cancelAcquire()`方法作用是：取消当前线程拿锁的行为，就在在这个期间线程出现了异常，但现在线程节点已经在队列里面了哦，具体方法内部就是改变了线程节点的status状态，不是重点。
 
@@ -516,11 +516,11 @@ tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁
 
 > 这里简单讲解一下这个interrupted变量的含义，他和Java里面的线程中断机制有关。
 >
-> <img src="images/image-20230729183548657.png" alt="image-20230729183548657" style="zoom: 33%;" />
+> <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729183548657.png" alt="image-20230729183548657" style="zoom: 33%;" />
 
 ==我们接下来研究**“是否需要被挂起的方法shouldParkAfterFailedAcquire（）”**，如下：==
 
-<img src="images/image-20230729185747473.png" alt="image-20230729185747473" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729185747473.png" alt="image-20230729185747473" style="zoom: 33%;" />
 
 **若当前节点没有拿锁的权限或拿锁失败，那么将会进入should ParkAfterFailedAcquire 判断是否需要挂起 (park)**，
 
@@ -541,7 +541,7 @@ tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁
 
 ==如果返回true，代表当前节点需要被挂起，则执行`parkAndChecklnterrupt`方法。==
 
-<img src="images/image-20230729190744563.png" alt="image-20230729190744563" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729190744563.png" alt="image-20230729190744563" style="zoom:50%;" />
 
 此时当前Node中的线程将阻塞在此处，直到持有锁的线程调用release方法，release方法会唤醒后续节点。
 
@@ -549,7 +549,7 @@ tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁
 
 ==通过对`acquireQueued`这个方法的分析，我们可以这么说，==如果当前线程所在的节点处于头节点的后一个，那么它将会不断去尝试拿锁，直到获取成功。否则进行判断，是否需要挂起。这样就能保证head之后的一个节点在自旋CAS获取锁，其他线程都已经被挂起或正在被挂起。这样就能最大限度地避免无用的自旋消耗CPU。
 
-<img src="images/image-20230729191037739.png" alt="image-20230729191037739" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729191037739.png" alt="image-20230729191037739" style="zoom:50%;" />
 
 ### 3. Release()
 
@@ -559,7 +559,7 @@ tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁
 
 在release中，假如尝试释放锁成功，下一步就要唤醒等待队列里的其他节点，这里主要来看unparkSuccessor这个方法。**参数是head Node.**
 
-<img src="images/image-20230729191730925.png" alt="image-20230729191730925" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729191730925.png" alt="image-20230729191730925" style="zoom: 33%;" />
 
 获取head的waitStatus，如果不为0，那么将其置为0，表示锁已释放。
 
@@ -577,7 +577,7 @@ tryAcquire我们已经讲过了，这里的意思是，如果tryAcquire获取锁
 
 # 5、JUC工具包
 
-<img src="images/image-20230729192529346.png" alt="image-20230729192529346" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729192529346.png" alt="image-20230729192529346" style="zoom:50%;" />
 
 # 6、JUC.ReentrantLock
 
@@ -587,13 +587,13 @@ ReeentrantLock作为开发中最常用的组件，也作为面试中被问到的
 
 **此外，和synchronized一样，ReentrantLock支持可重入，但ReentrantLock在调度上更灵活，支持更多丰富的功能。**
 
-<img src="images/image-20230729193657582.png" alt="image-20230729193657582" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729193657582.png" alt="image-20230729193657582" style="zoom:50%;" />
 
 
 
 接下来，我们阅读一下ReentrantLock的源码，仔细研究一下他是如何基于AQS实现对资源的同步的。
 
-<img src="images/image-20230729213447268.png" alt="image-20230729213447268" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729213447268.png" alt="image-20230729213447268" style="zoom:50%;" />
 
 可以看到，同样十分简单，
 
@@ -607,7 +607,7 @@ ReeentrantLock作为开发中最常用的组件，也作为面试中被问到的
 
 最开头的一段注释介绍了Lock的意义在于提供了**区别于synchronized的另一种具有更多广泛操作的同步方式**，它能支持更多灵活的结构，并且可以关联多个Condition对象。Condition是Java提供的一个用于线程通信的接口，下文将会介绍。
 
-<img src="images/image-20230729195038426.png" alt="image-20230729195038426" style="zoom:33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729195038426.png" alt="image-20230729195038426" style="zoom:33%;" />
 
 Lock.java源码文件显然有350多行，但只对六个方法进行了定义，其余都是注释。注释篇幅比较长，我这里就来简单概括一下，感兴趣的同学可以自己去通读一下注释。
 
@@ -632,33 +632,33 @@ ReentrantLock只有一个属性：即Sync类型的变量sync，且被final修饰
 
 那么它的初始化时机是什么时候？
 
-<img src="images/image-20230729213046446.png" alt="image-20230729213046446" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729213046446.png" alt="image-20230729213046446" style="zoom:50%;" />
 
 答案肯定是构造器里面，
 
-<img src="images/image-20230729213118562.png" alt="image-20230729213118562" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729213118562.png" alt="image-20230729213118562" style="zoom:50%;" />
 
 默认无参构造器中，sync将被初始化为非公平锁对象，而在含参构造器中，可以通过参数指定其被初始化为公平锁还是非公平锁对象。这里的`NonfairSync`和`FairSync`两个类，看名字能够知道其分别为实现了非公平性和公平性的锁，下文将会详细讲解。
 
 ## 6.3 抽象内部类Sync
 
-<img src="images/image-20230729215236291.png" alt="image-20230729215236291" style="zoom:67%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729215236291.png" alt="image-20230729215236291" style="zoom:67%;" />
 
 我们接下来看一下这个第一个final方法；
 
-<img src="images/image-20230729215440225.png" alt="image-20230729215440225" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729215440225.png" alt="image-20230729215440225" style="zoom: 33%;" />
 
 >  这里就有点奇怪，刚才不是说公平性获取锁和非公平性获取锁的逻辑都应该分别在FairSync和NonFairSync中单独实现，那么在Sync这个基类中，为什么会出现 nonfairTryAcquire 这种方法？我猜测应该是FairSync和NonFairSync中都需要用到该方法，那为什么FairSync中会用到nonfairTryAcquire 这种非公平性的方法？我们暂时存疑，下文再看。
 
 然后第二个final方法：
 
-<img src="images/image-20230729215740041.png" alt="image-20230729215740041" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729215740041.png" alt="image-20230729215740041" style="zoom:50%;" />
 
 关于Sync，内容不多，它是一个抽象类，它的两个子类NonfairSync、 FairSync分别实现了公平性锁和非公平性锁。
 
 ==那么，什么是公平性锁和非公平性锁？==
 
-<img src="images/image-20230729215904888.png" alt="image-20230729215904888" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729215904888.png" alt="image-20230729215904888" style="zoom:50%;" />
 
 为什么非公平锁的性能会更高？现实生活中不是排队比争抢效率更高吗？
 
@@ -666,7 +666,7 @@ ReentrantLock只有一个属性：即Sync类型的变量sync，且被final修饰
 
 ## 6.4 NonfairSync和FairSync
 
-<img src="images/image-20230729221508901.png" alt="image-20230729221508901" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729221508901.png" alt="image-20230729221508901" style="zoom:50%;" />
 
 从上面可以看出，
 
@@ -674,7 +674,7 @@ ReentrantLock只有一个属性：即Sync类型的变量sync，且被final修饰
 - 使用tryAcquire方法时，会直接调用nonfairTryAcquire方法，这个里面会进行一次直接获取锁。
 - **最后，两个方法都调用了Sync写的nonfairTryAcquire方法，它里面实现了可重入性。**
 
-<img src="images/image-20230729221931929.png" alt="image-20230729221931929" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729221931929.png" alt="image-20230729221931929" style="zoom:50%;" />
 
 ## 6.5 对Lock内方法的实现
 
@@ -684,17 +684,17 @@ ReentrantLock只有一个属性：即Sync类型的变量sync，且被final修饰
 
 再次提一句：ReentrantLock内的Sync类的属性，在构造函数里面进行初始化，一个是NonfairSync，一个是公平锁。
 
-<img src="images/image-20230729222444177.png" alt="image-20230729222444177" style="zoom:33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729222444177.png" alt="image-20230729222444177" style="zoom:33%;" />
 
 ### **lock() 方法**
 
 果然，我们点开可以看到ReentrantLock对Lock锁里面的`lock`方法实现就是简单一行.
 
-<img src="images/image-20230729222730533.png" alt="image-20230729222730533" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729222730533.png" alt="image-20230729222730533" style="zoom:50%;" />
 
 ### **lockInterruptibly()方法**
 
-<img src="images/image-20230729223137103.png" alt="image-20230729223137103" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729223137103.png" alt="image-20230729223137103" style="zoom:50%;" />
 
 locklnterruptibly与lock方法的区别在于，当线程在等待锁的期间，是否立即相应中断。
 
@@ -720,7 +720,7 @@ locklnterruptibly与lock方法的区别在于，当线程在等待锁的期间�
 
 ### tryLock()方法
 
-<img src="images/image-20230729223541841.png" alt="image-20230729223541841" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729223541841.png" alt="image-20230729223541841" style="zoom:50%;" />
 
 尝试获取锁，直接调用Sync的nonfairTryAcquire方法；
 
@@ -728,7 +728,7 @@ locklnterruptibly与lock方法的区别在于，当线程在等待锁的期间�
 
 ### 其他方法
 
-<img src="images/image-20230729224005663.png" alt="image-20230729224005663" style="zoom:50%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729224005663.png" alt="image-20230729224005663" style="zoom:50%;" />
 
 ## 6.6 总结
 
