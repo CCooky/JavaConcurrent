@@ -58,7 +58,7 @@ JVM线程模型的三种类型：一对一，多对一，多对多。
 
 **这种线程模型就是在Java线程（用户线程 UT ） 与操作系统线程 (KLT)之间建立一对一的关系**，这种关系看上去简单粗暴，但就是好用，可以看下面这张图，一目了然。
 
-UT=用户线程；LWP=轻量级进程；KLT=内核线程
+**UT=用户线程；LWP=轻量级进程；KLT=内核线程**
 
 <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230724173150159.png" alt="image-20230724173150159" style="zoom:50%;" />
 
@@ -172,6 +172,8 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 
 在Java中，启用对象锁的方式是使用synchronized关键字，那么synchronized背后的原理是什么，上面列举的这些状态又都是什么意思呢？
 
+
+
 ## 2.3 Synchronized
 
 我们都知道，Java里面Synchronized关键字可以用来同步线程，它的底层原理是synchronized被编译后会生成monitorenter和monitorexit两个字节码指令，依赖这两个字节码指令来进行线程同步。
@@ -209,6 +211,8 @@ TIPS：其中对齐填充字节是为了满足“Java对象大小是8字节的�
 <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728193327594.png" alt="image-20230728193327594" style="zoom: 33%;" />
 
 顺便一提的是，上面也分析了依赖操作系统Mutex Lock导致性能低下的原因，所以在大部分情况下，无锁的效率更高，但这并非意味着无锁能够全面代替有锁。
+
+
 
 ==**2、偏向锁**==
 
@@ -283,6 +287,8 @@ CAS：全称compare and swap，即比较并交换，它是一条==CPU同步原�
 
 **这些通过CAS来实现同步的工具，由于不会锁定资源，**而且当线程需要修改共享资源对象时，总是会乐观地认为对象状态值没有被其他线程修改过，自己主动尝试去Compare And Set状态值，相较于上文提到的 “悲观锁”，这种同步机制被称作 “乐观锁”。
 
+
+
 ## 3.2 Java中的乐观锁编程
 
 那么在Java中，是如何利用CAS特性来进行乐观锁编程的。
@@ -301,6 +307,8 @@ CAS：全称compare and swap，即比较并交换，它是一条==CPU同步原�
 
 **我们需要关注的是Atomiclnteger底层是如何通过CAS来做到无锁同步的。**
 
+
+
 ## 3.3 Atomiclnteger源码
 
 **我们进入源码看一下**
@@ -314,6 +322,8 @@ AtomicInteger这个类的内容不多，主要的成员变量就是一个Unsafe�
 <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230728201821189.png" alt="image-20230728201821189" style="zoom:50%;" />
 
 有的同学会问，假如这边CAS操作一直失败，那么会不会一直死循环下去？问得好，自旋的次数实际上可以通过启动参数来配置，如果你不配置的话，默认是10，所以不会出现死循环。
+
+
 
 ## 3.4 unsafe类
 
@@ -642,11 +652,11 @@ ReentrantLock只有一个属性：即Sync类型的变量sync，且被final修饰
 
 ## 6.3 抽象内部类Sync
 
-<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729215236291.png" alt="image-20230729215236291" style="zoom:67%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729215236291.png" alt="image-20230729215236291"  />
 
 我们接下来看一下这个第一个final方法；
 
-<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729215440225.png" alt="image-20230729215440225" style="zoom: 33%;" />
+<img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729215440225.png" alt="image-20230729215440225" style="zoom: 50%;" />
 
 >  这里就有点奇怪，刚才不是说公平性获取锁和非公平性获取锁的逻辑都应该分别在FairSync和NonFairSync中单独实现，那么在Sync这个基类中，为什么会出现 nonfairTryAcquire 这种方法？我猜测应该是FairSync和NonFairSync中都需要用到该方法，那为什么FairSync中会用到nonfairTryAcquire 这种非公平性的方法？我们暂时存疑，下文再看。
 
@@ -672,6 +682,9 @@ ReentrantLock只有一个属性：即Sync类型的变量sync，且被final修饰
 
 - 使用lock方法时，会先进行一次CAS的尝试，当尝试获取锁失败时，调用acquire方法，但是记得哦在acquire内部，首先会调用一次tryAcquire方法，它已经被这个Sync类重写了（nonfairTryAcquire），它又会先直接尝试获取锁，如果没有获取到，最后就乖乖进入队列等待了。**这就体现了“非公平性”。即先来两次直接获取锁，再排队。**
 - 使用tryAcquire方法时，会直接调用nonfairTryAcquire方法，这个里面会进行一次直接获取锁。
+
+
+
 - **最后，两个方法都调用了Sync写的nonfairTryAcquire方法，它里面实现了可重入性。**
 
 <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729221931929.png" alt="image-20230729221931929" style="zoom:50%;" />
@@ -726,6 +739,8 @@ locklnterruptibly与lock方法的区别在于，当线程在等待锁的期间�
 
 这就是说明：ReentrantLock的`tryLock()`永远都是非公平的，因为nonfairTryAcquire会进行一次直接cas操作拿锁。为什么要这样设计呢？因为我们tryLock是只进行一次获取锁，然后直接返回的，所以肯定是非公平的。
 
+
+
 ### 其他方法
 
 <img src="https://java-baguwen.oss-cn-chengdu.aliyuncs.com/images/image-20230729224005663.png" alt="image-20230729224005663" style="zoom:50%;" />
@@ -741,4 +756,130 @@ locklnterruptibly与lock方法的区别在于，当线程在等待锁的期间�
 3、在介绍Sync时，讲解了它如何实现可重入特性，在介绍NonfairSync和FairSync时，讲解了公平锁与非公平锁的概念以及它们各自的实现方式。
 
 4、最后，在介绍ReentrantLock对Lock的实现时，介绍了Java的中断机制。并且与上期的AQS内容结合，将知识连贯了起来。
+
+
+
+# 7、多线程轮流打印1-100
+
+## 7.1利用volatile，两个线程
+
+```java
+public class Main {
+    static volatile int flag = 0;
+    static int num = 0; // 两个线程对num进行累计得到10
+
+    public static void main(String[] args) throws InterruptedException {
+
+        Thread thread1 = new Thread(new Runnable1());
+        Thread thread2 = new Thread(new Runnable2());
+        thread1.start();
+        thread2.start();
+    }
+}
+
+class Runnable1 implements Runnable {
+
+    @Override
+    public void run() {
+        while (Main.num < 20) {
+            if (Main.flag == 0) {
+                Main.num++;
+                System.out.println(Thread.currentThread().getName() + " :" + Main.num);
+                Main.flag = 1; // 原子操作
+            }
+        }
+    }
+}
+
+class Runnable2 implements Runnable {
+
+    @Override
+    public void run() {
+        while (Main.num < 20) {
+            if (Main.flag == 1) {
+                Main.num++;
+                System.out.println(Thread.currentThread().getName() + " :" + Main.num);
+                Main.flag = 0; //原子操作
+            }
+        }
+    }
+}
+```
+
+
+
+## 7.2 ReentractLock
+
+```java
+public class Main {
+    public static int num = 0;
+
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(new Runnable1());
+        Thread thread2 = new Thread(new Runnable1());
+        thread1.start();
+        thread2.start();
+    }
+}
+
+class Runnable1 implements Runnable {
+    public static ReentrantLock lock = new ReentrantLock(true);
+
+    @Override
+    public void run() {
+
+        while (Main.num < 10) {
+          
+            lock.lock();
+            try {
+                if(Main.num < 10){
+                    Main.num++;
+                    System.out.println(Thread.currentThread().getName() + " : " + Main.num);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+
+    }
+}
+```
+
+
+
+## 7.3 Synchronized
+
+```java
+public class Main {
+    public static int num = 0;
+
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(new Runnable2());
+        Thread thread2 = new Thread(new Runnable2());
+        thread1.start();
+        thread2.start();
+    }
+}
+
+class Runnable2 implements Runnable {
+
+    @Override
+    public void run() {
+        while (Main.num < 10) {
+            synchronized (Runnable2.class) { // 锁住当前类才行，所有他的对象都要等待同一把锁
+                if (Main.num < 10) {
+                    Main.num++;
+                    System.out.println(Thread.currentThread().getName() + " : " + Main.num);
+                }
+                Runnable2.class.notify();
+                try {
+                    Runnable2.class.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+}
+```
 
